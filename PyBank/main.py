@@ -32,7 +32,7 @@ with open(csvpath,newline='') as csvfile:
     
     print("Here is the Financial Analysis Over the Period of our Company : ")
     print("-----------------------------------------------------------------")
-    print("Number of months included in sheet:" + str(count_mon))
+    print("Number of months included in Provided Data:" + str(count_mon))
     print("Sum of profit loss over the period:" + str(sum_pro_los))
     print("Average of Profit loss over period:"+ str(round(sum_pro_los/count_mon,2)))
     print("Greatest Increse in profits appered in  :"+ myList_pro[0] + " , profit of :"+ str(myList_pro[1]))
