@@ -13,8 +13,7 @@ nam_1 = " "
 nam_2 = " "
 nam_3 = " "
 nam_4 = " "
-nam_5 = " "
-nam_6 = " "
+Winner = " "
 
 
 votes = 0
@@ -60,12 +59,13 @@ with open(csvpath,newline='') as csvfile:
             # print(len(candidates))
             if row[2] == candidates[4] :
                 can_otr_votes = can_otr_votes + 1
-                name_5 = candidates[4]
         if len(candidates) > 5 :
-            # print(len(candidates))
-            if row[2] == candidates[5] :
+            if row[2] ==  candidates[5] :
                 can_otr_votes = can_otr_votes + 1
-                name_6 = candidates[5]
+        if len(candidates) > 6 :
+            if row[2] ==  candidates[6] :
+                can_otr_votes = can_otr_votes + 1
+
     print("Election Results :")
     print("---------------------------------------------------")
     print("Total polled Votes :" + str(votes) ) 
@@ -84,19 +84,32 @@ with open(csvpath,newline='') as csvfile:
     print (candidates[3] + " = " + str(round((can_fur_votes/votes)*100, 2)))
     print ("Others = " + str(round((can_otr_votes/votes)*100, 2)))
     print("----------------------------------------------------")
+    
+
+    output_path = os.path.join("..", "PyPoll", "Election_Results.csv")
+
+     # Open the file using "write" mode. Specify the variable to hold the contents
+    with open(output_path, 'w', newline='') as csvfile:
+     # Initialize csv.writer
+        csvwriter = csv.writer(csvfile)
 
     myVotes_list=[can_one_votes, can_two_votes, can_thr_votes, can_fur_votes, can_otr_votes]
     p = max(myVotes_list)
     if p == can_one_votes :
         print ("WINNER OF ELECTION IS :"+candidates[0])
+        Winner = str(candidates[0])
     elif p == can_two_votes :
          print ("WINNER OF ELECTION IS :"+candidates[1])
+         Winner = str(candidates[1])
     elif p == can_thr_votes :
          print ("WINNER OF ELECTION IS :"+candidates[2])
+         Winner = str(candidates[2])
     elif p == can_fur_votes :
          print ("WINNER OF ELECTION IS :"+candidates[3])
+         Winner = str(candidates[3])
     else : 
          print ("WINNER OF ELECTION IS :"+candidates[4])
+         Winner = str("Others")
      
 output_path = os.path.join("..", "PyPoll", "Election_Results.csv")
 
@@ -108,10 +121,11 @@ with open(output_path, 'w', newline='') as csvfile:
 
          
         csvwriter.writerow(['Total Votes', str(votes)])
-        csvwriter.writerow([ candidates[0] + " Scored Votes :", str(can_one_votes), "  Percent of Votes :" ,str(round((can_one_votes/votes)*100, 2))  ])
-        csvwriter.writerow([ candidates[1] + " Scored Votes :", str(can_two_votes),  "  Percent of Votes :" ,str(round((can_two_votes/votes)*100, 2))  ])
-        csvwriter.writerow([ candidates[2] + " Scored Votes :", str(can_thr_votes),  "  Percent of Votes :" ,str(round((can_thr_votes/votes)*100, 2))  ])
-        csvwriter.writerow([ candidates[3] + " Scored Votes :", str(can_fur_votes),  "  Percent of Votes :" ,str(round((can_fur_votes/votes)*100, 2))  ])
-        csvwriter.writerow(["Winner Of Election :",candidates[0] ])
+        csvwriter.writerow([ candidates[0] + " Scored Votes :", str(can_one_votes), candidates[0] + "  Percent of Votes :" ,str(round((can_one_votes/votes)*100, 2))  ])
+        csvwriter.writerow([ candidates[1] + " Scored Votes :", str(can_two_votes),  candidates[1] + "  Percent of Votes :" ,str(round((can_two_votes/votes)*100, 2))  ])
+        csvwriter.writerow([ candidates[2] + " Scored Votes :", str(can_thr_votes),  candidates[2] + "  Percent of Votes :" ,str(round((can_thr_votes/votes)*100, 2))  ])
+        csvwriter.writerow([ candidates[3] + " Scored Votes :", str(can_fur_votes),  candidates[3] + "  Percent of Votes :" ,str(round((can_fur_votes/votes)*100, 2))  ])
+        csvwriter.writerow([  " Others Scored Votes :", str(can_otr_votes),   " Others  Percent of Votes :" ,str(round((can_otr_votes/votes)*100, 2))  ])
+        csvwriter.writerow(["Winner Of Election :", Winner ])
 
     
